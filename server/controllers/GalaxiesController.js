@@ -1,5 +1,6 @@
 import BaseController from '../utils/BaseController'
 import { galaxiesService } from '../services/GalaxiesService'
+import { starsService } from '../services/StarsService'
 
 export class GalaxiesController extends BaseController {
   constructor() {
@@ -7,6 +8,7 @@ export class GalaxiesController extends BaseController {
     this.router
       .get('', this.getAll)
       .get('/:id', this.getById)
+      .get('/:id/stars', this.getStarsByGalaxyId)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.destroy)
@@ -21,8 +23,8 @@ export class GalaxiesController extends BaseController {
 
   async getAll(req, res, next) {
     try {
-      const Galaxies = await galaxiesService.getAll(req.query)
-      res.send(Galaxies)
+      const galaxies = await galaxiesService.getAll(req.query)
+      res.send(galaxies)
     } catch (error) {
       next(error)
     }
@@ -39,6 +41,22 @@ export class GalaxiesController extends BaseController {
     try {
       const Galaxy = await galaxiesService.getById(req.params.id)
       res.send(Galaxy)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  /**
+       * Gets stars by GalaxyID
+       * @param {import("express").Request} req
+       * @param {import("express").Response} res
+       * @param {import("express").NextFunction} next
+       */
+
+  async getStarsByGalaxyId(req, res, next) {
+    try {
+      const stars = await starsService.getAll({ galaxyId: req.params.id })
+      res.send(stars)
     } catch (error) {
       next(error)
     }
