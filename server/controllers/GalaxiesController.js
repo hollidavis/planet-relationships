@@ -13,7 +13,7 @@ export class GalaxiesController extends BaseController {
   }
 
   /**
-       * Function Description
+       * Gets all galaxies
        * @param {import("express").Request} req
        * @param {import("express").Response} res
        * @param {import("express").NextFunction} next
@@ -21,7 +21,7 @@ export class GalaxiesController extends BaseController {
 
   async getAll(req, res, next) {
     try {
-      const Galaxies = await GalaxiesService.getAll(req.query)
+      const Galaxies = await galaxiesService.getAll(req.query)
       res.send(Galaxies)
     } catch (error) {
       next(error)
@@ -29,7 +29,7 @@ export class GalaxiesController extends BaseController {
   }
 
   /**
-       * Function Description
+       * Gets galaxy by ID
        * @param {import("express").Request} req
        * @param {import("express").Response} res
        * @param {import("express").NextFunction} next
@@ -37,7 +37,7 @@ export class GalaxiesController extends BaseController {
 
   async getById(req, res, next) {
     try {
-      const Galaxy = await GalaxiesService.getById(req.params.id)
+      const Galaxy = await galaxiesService.getById(req.params.id)
       res.send(Galaxy)
     } catch (error) {
       next(error)
@@ -45,7 +45,7 @@ export class GalaxiesController extends BaseController {
   }
 
   /**
-       * Function Description
+       * Creates new galaxy
        * @param {import("express").Request} req
        * @param {import("express").Response} res
        * @param {import("express").NextFunction} next
@@ -53,7 +53,7 @@ export class GalaxiesController extends BaseController {
 
   async create(req, res, next) {
     try {
-      const Galaxy = await GalaxiesService.create(req.body)
+      const Galaxy = await galaxiesService.create(req.body)
       res.send(Galaxy)
     } catch (error) {
       next(error)
@@ -61,7 +61,7 @@ export class GalaxiesController extends BaseController {
   }
 
   /**
-       * Function Description
+       * Edits galaxy by ID
        * @param {import("express").Request} req
        * @param {import("express").Response} res
        * @param {import("express").NextFunction} next
@@ -70,7 +70,7 @@ export class GalaxiesController extends BaseController {
   async edit(req, res, next) {
     try {
       req.body.id = req.params.id
-      const Galaxy = await GalaxiesService.edit(req.body)
+      const Galaxy = await galaxiesService.edit(req.body)
       res.send(Galaxy)
     } catch (error) {
       next(error)
@@ -78,7 +78,7 @@ export class GalaxiesController extends BaseController {
   }
 
   /**
-       * Function Description
+       * Destroys galaxy by ID
        * @param {import("express").Request} req
        * @param {import("express").Response} res
        * @param {import("express").NextFunction} next
@@ -86,7 +86,7 @@ export class GalaxiesController extends BaseController {
 
   async destroy(req, res, next) {
     try {
-      const Galaxy = await GalaxiesService.destroy(req.params.id)
+      await galaxiesService.destroy(req.params.id)
       res.send({ message: 'Successfully Deleted' })
     } catch (error) {
       next(error)
